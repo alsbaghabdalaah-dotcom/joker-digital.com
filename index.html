@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>JOKER DIGITAL — Turning ideas into digital power</title>
+  <style>
+    /* Basic reset */
+    * {box-sizing: border-box; margin:0; padding:0}
+    html,body {height:100%}
+    body {
+      font-family: Inter, system-ui, Arial, sans-serif;
+      color:#e9f1f8;
+      background: linear-gradient(120deg, #0b1220 0%, #071022 35%, #031633 100%);
+      overflow-y: auto;
+    }
+
+    /* animated lines background (digital feel) */
+    .bg-lines {
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 10% 10%, rgba(0,120,255,0.06), transparent 6%),
+        radial-gradient(circle at 90% 90%, rgba(0,200,255,0.04), transparent 8%);
+      pointer-events: none;
+      z-index: 0;
+      animation: float 12s linear infinite;
+      opacity: 1;
+    }
+    @keyframes float { 0%{transform:translateY(0)}50%{transform:translateY(-20px)}100%{transform:translateY(0)} }
+
+    /* main container */
+    .wrap {
+      position: relative;
+      z-index: 2;
+      max-width:1100px;
+      margin: 40px auto;
+      padding: 36px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(2,12,30,0.6);
+      backdrop-filter: blur(6px) saturate(120%);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    header {
+      display:flex;
+      align-items:center;
+      gap:18px;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .logo {
+      width:62px; height:62px;
+      border-radius:12px;
+      background: linear-gradient(135deg,#007BFF,#00C6FF);
+      display:flex;align-items:center;justify-content:center;
+      font-weight:800;color:#fff;
+      box-shadow:0 6px 18px rgba(0,123,255,0.18);
+      font-family: monospace;
+    }
+    h1 { font-size:20px; letter-spacing:0.6px; color:#e9f1f8; }
+    p.tag { color:#bfe6ff; opacity:0.9; font-size:13px; margin-top:6px }
+
+    nav {
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .btn-primary {
+      background: linear-gradient(90deg,#007BFF,#00C6FF);
+      color: #021021; font-weight:700;
+      padding:10px 14px;border-radius:10px;border:none;
+      box-shadow: 0 8px 24px rgba(0, 118, 255, 0.14);
+      cursor:pointer; text-decoration:none;
+    }
+    .btn-ghost {
+      background: transparent; color:#a8d8ff; border:1px solid rgba(168,216,255,0.12);
+      padding:8px 12px;border-radius:10px;text-decoration:none;
+    }
+
+    /* hero */
+    .hero {
+      display:flex;
+      gap:20px;
+      align-items:flex-start;
+      margin-top:26px;
+      flex-wrap:wrap;
+      justify-content:space-between;
+    }
+    .hero-left { flex:1 1 420px; min-width:260px; }
+    .hero-right { width:320px; min-width:220px; }
+
+    .hero h2 {
+      font-size:28px;color:#dff6ff;margin-bottom:8px;
+    }
+    .hero p { color:#bcdff4; margin-bottom:14px; font-size:15px }
+
+    .cta-row { display:flex; gap:12px; align-items:center; margin-top:10px; flex-wrap:wrap }
+    .small-muted { font-size:13px; color:#96cdeb; opacity:0.9 }
+
+    /* services grid */
+    .services {
+      margin-top:34px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap:16px;
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+      border-radius:12px; padding:18px; cursor:pointer;
+      border:1px solid rgba(255,255,255,0.04);
+      transition: transform .28s ease, box-shadow .28s ease;
+      position:relative; overflow:hidden;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,90,160,0.12) }
+    .card h3 { color:#dff6ff; font-size:16px; margin-bottom:6px }
+    .card p { color:#b5dff4; font-size:14px }
+
+    /* modal */
+    .modal-backdrop {
+      position:fixed; inset:0; background:rgba(2,12,30,0.6);
+      display:none; align-items:center; justify-content:center; z-index:99;
+    }
+    .modal {
+      width:92%; max-width:700px; border-radius:12px; padding:22px;
+      background: linear-gradient(180deg,#052033 0%, #021223 100%);
+      border:1px solid rgba(0,120,255,0.12);
+      box-shadow:0 30px 80px rgba(2,10,30,0.7);
+      color:#dff6ff;
+    }
+    .modal h4 { margin-bottom:8px }
+    .modal .close {
+      background:transparent; color:#bfe6ff; border:none; font-size:18px; cursor:pointer;
+      position:absolute; right:18px; top:12px;
+    }
+
+    /* footer */
+    footer { margin-top:36px; color:#9fccec; font-size:13px; opacity:0.95; text-align:center }
+
+    /* responsive */
+    @media (max-width:640px){
+      .hero { flex-direction:column }
+      .hero-right { width:100% }
+      .brand h1 { font-size:16px }
+      .logo { width:54px;height:54px }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-lines" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">JD</div>
+        <div>
+          <h1>JOKER DIGITAL</h1>
+          <p class="tag">Turning ideas into digital power</p>
+        </div>
+      </div>
+
+      <nav>
+        <a class="btn-ghost" href="#services">Services</a>
+        <a class="btn-ghost" href="#contact">Contact</a>
+        <a class="btn-primary" href="https://wa.me/201551442850" target="_blank">WhatsApp</a>
+      </nav>
+    </header>
+
+    <section class="hero" aria-label="hero">
+      <div class="hero-left">
+        <h2>We craft beautiful digital products — websites, apps & marketing</h2>
+        <p>Professional design, fast development, and effective marketing to grow your brand online.</p>
+
+        <div class="cta-row">
+          <a class="btn-primary" href="https://wa.me/201551442850" target="_blank">Start a Project</a>
+          <a class="btn-ghost" href="#portfolio">See Portfolio</a>
+          <span class="small-muted">Call: <a href="tel:01551442850" style="color:#bfe6ff; text-decoration:none">+20 155 144 2850</a></span>
+        </div>
+      </div>
+
+      <div class="hero-right" aria-hidden="true">
+        <!-- simple decorative card -->
+        <div style="background:linear-gradient(180deg, rgba(0,110,220,0.12), rgba(0,60,120,0.06)); padding:18px; border-radius:12px; border:1px solid rgba(0,120,255,0.06)">
+          <h3 style="color:#dff6ff">Why choose us?</h3>
+          <p style="color:#bfe6ff; font-size:14px">Fast delivery · Modern UI · Measurable results</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <h2 style="color:#bfe6ff; margin-top:26px">Our Services</h2>
+      <div class="services">
+        <div class="card" onclick="openModal('Web Development','We build fast, responsive and SEO-friendly websites. CMS, e-commerce and landing pages included.')">
+          <h3>💻 Web Development</h3>
+          <p>Responsive websites, e-commerce & custom web apps.</p>
+        </div>
+
+        <div class="card" onclick="openModal('Mobile Apps','Native & cross-platform mobile apps for Android and iOS with smooth UX.')">
+          <h3>📱 Mobile Apps</h3>
+          <p>Native & Flutter apps, with backend & analytics.</p>
+        </div>
+
+        <div class="card" onclick="openModal('Digital Marketing','Paid ads, social media management and conversion optimization.')">
+          <h3>🎯 Digital Marketing</h3>
+          <p>Facebook/Instagram ads, Google Ads, growth strategies.</p>
+        </div>
+
+        <div class="card" onclick="openModal('Design & Video','Brand identity, motion design and promotional videos.')">
+          <h3>🎨 Design & Video</h3>
+          <p>Logo, brand kit, banners, and cinematic ads.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:26px">
+      <h2 style="color:#bfe6ff">Contact</h2>
+      <p style="color:#bfe6ff">Ready to start? Send us a message or open a WhatsApp chat.</p>
+      <div style="display:flex; gap:10px; align-items:center; justify-content:center; margin-top:8px; flex-wrap:wrap">
+        <a class="btn-primary" href="https://wa.me/201551442850" target="_blank">Chat on WhatsApp</a>
+        <a class="btn-ghost" href="tel:01551442850">Call +20 155 144 2850</a>
+      </div>
+    </section>
+
+    <footer>© <span id="year"></span> Joker Digital · All rights reserved</footer>
+  </div>
+
+  <!-- modal -->
+  <div class="modal-backdrop" id="modalBackdrop" onclick="closeModal()">
+    <div class="modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+      <button class="close" onclick="closeModal()">✕</button>
+      <h4 id="modalTitle"></h4>
+      <p id="modalBody" style="margin-top:10px; color:#cfeeff"></p>
+      <div style="margin-top:16px; display:flex; gap:10px; justify-content:flex-end">
+        <a class="btn-primary" href="https://wa.me/201551442850" target="_blank">Discuss on WhatsApp</a>
+        <a class="btn-ghost" href="tel:01551442850">Call</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // helper for modal
+    function openModal(title, body){
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalBody').innerText = body;
+      document.getElementById('modalBackdrop').style.display = 'flex';
+    }
+    function closeModal(){ document.getElementById('modalBackdrop').style.display = 'none'; }
+
+    // current year
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    // fix for external links on some in-app browsers
+    (function(){
+      const all = document.querySelectorAll('a[target="_blank"]');
+      all.forEach(a => a.addEventListener('click', e => {
+        // allow default; mobile browsers will open new tab
+      }));
+    })();
+  </script>
+</body>
+</html>
